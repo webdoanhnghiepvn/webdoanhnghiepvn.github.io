@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Web doanh nghiệp</title>
+	<atom:link href="http://localhost/feed/" rel="self" type="application/rss+xml" />
+	<link>http://localhost</link>
+	<description></description>
+	<lastBuildDate>Mon, 21 Sep 2020 15:10:16 +0000</lastBuildDate>
+	<language>vi</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.5.1</generator>
+	<item>
+		<title>IOT-ESP8266: 02-Chương trình nháy led</title>
+		<link>http://localhost/2020/09/21/iot-esp8266-02-chuong-trinh-nhay-led/</link>
+					<comments>http://localhost/2020/09/21/iot-esp8266-02-chuong-trinh-nhay-led/#respond</comments>
+		
+		<dc:creator><![CDATA[codervn]]></dc:creator>
+		<pubDate>Mon, 21 Sep 2020 14:48:05 +0000</pubDate>
+				<category><![CDATA[Chưa được phân loại]]></category>
+		<guid isPermaLink="false">http://localhost/?p=144</guid>
+
+					<description><![CDATA[Tìm hiểu phần cứng Trong Arduino sẽ định danh các ngõ vào-ra(dạng 0-mức cao/1-mức thấp) thành ký hiệu Dx với x là số thứ tự bắt đầu từ 0 được ...]]></description>
+										<content:encoded><![CDATA[
+<p><strong>Tìm hiểu phần cứng</strong></p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="666" height="364" src="http://localhost/wp-content/uploads/2020/09/ESP-12E-Development-Board-ESP8266-NodeMCU-Pinout.jpg" alt="" class="wp-image-133"/></figure>
+
+
+
+<p>Trong Arduino sẽ định danh các ngõ vào-ra(dạng 0-mức cao/1-mức thấp) thành ký hiệu Dx với x là số thứ tự bắt đầu từ 0 được in trực tiếp trên bo, mỗi chân Dx đều có thể cấu hình là input hoặc là output bên trong code. Ngoài các chân digital ta có thêm chân A0-ADC0 dùng để đọc mức analog(điện áp).</p>
+
+
+
+<p><strong>Kết nối phần cứng</strong><br></p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="666" height="641" src="http://localhost/wp-content/uploads/2020/09/esp8266_led_blinker.png" alt="" class="wp-image-147"/></figure>
+
+
+
+<p>Do trên bo đã tích hợp sẵn IC CP2102 để nạp chương trình và đã cấp nguồn thông qua cổng USB vì thế ta chỉ cần gắn led và trở vào. Ở đây ta gắn chân D8 nối vào chân Anode(chân dương) của led, chân Cathode(chân âm) của led nối vào GND</p>
+
+
+
+<p><strong>Cấu trúc chương trình trong Arduino</strong></p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="490" height="326" src="http://localhost/wp-content/uploads/2020/09/1_oKMRi3xcs5jszcVekHgp4A.png" alt="" class="wp-image-150"/></figure>
+
+
+
+<p>Mỗi chương trình arduino có hai hàm bắt buộc: setup () và loop (). Mã bên trong hàm setup () được thực thi một lần và hàm này để thiết lập môi trường chương trình Arduino của bạn ngay từ đầu. Hàm loop () được chạy liên tục trong khi chip được cấp nguồn và đã thực thi hàm setup () khởi tạo. Ngoài ra có thêm các chương trình xử lý ngắt sẽ thực thi khi có sự kiện mà đã cấu hình cho phép ngắt</p>
+
+
+
+<p>Các lệnh thường gặp trong hàm setup()</p>
+
+
+
+<ul><li>#define LED D8: Thường để chương trình đọc dễ hiểu hơn thì chúng ta sẽ mặc định các ký tự dễ phân biệt(như LED, BUTTON) vào các chân IO</li><li>const int LED = 8: Cách này cũng gần tương tự như dùng #define nhưng cách này sẽ liên quan đến kiểu dữ liệu(int) mà ta chọn. Biến khi tạo ra sẽ không thể thay đổi được giá trị do ta đã định nghĩa là kiểu hằng số</li><li>pinMode(pin, mode): Định nghĩa 1 chân IO nào đó là output hoặc input, với pin là các chân IO(từ D0->Dx&#8230;)</li></ul>
+
+
+
+<p><strong>Chương trình nháy led cơ bản</strong></p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="774" height="519" src="http://localhost/wp-content/uploads/2020/09/2019-04-28-18_52_34-example_LED-_-Arduino-1.8.9.png" alt="" class="wp-image-153"/></figure>
+
+
+
+<p>Có thể vào File->Example để lấy project mẫu Blink hoặc có thể tự gõ code để nhớ hơn ^^ Sau đó nạp xuống dưới bo</p>
+
+
+
+<p>Lưu ý vào Tools -> Chọn port đúng với port đăng gắn nodemcu</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="778" height="519" src="http://localhost/wp-content/uploads/2020/09/2019-04-28-18_46_03-example_LED-_-Arduino-1.8.9.png" alt="" class="wp-image-149"/></figure>
+]]></content:encoded>
+					
+					<wfw:commentRss>http://localhost/2020/09/21/iot-esp8266-02-chuong-trinh-nhay-led/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>IOT-ESP8266: 01-Tìm hiểu module esp8266 và khởi tạo công cụ</title>
+		<link>http://localhost/2020/09/21/iot-esp8266-01/</link>
+					<comments>http://localhost/2020/09/21/iot-esp8266-01/#respond</comments>
+		
+		<dc:creator><![CDATA[codervn]]></dc:creator>
+		<pubDate>Mon, 21 Sep 2020 04:12:15 +0000</pubDate>
+				<category><![CDATA[Lập trình arduino]]></category>
+		<guid isPermaLink="false">http://localhost/?p=40</guid>
+
+					<description><![CDATA[Kit ESP8266 là kit phát triển dựa trên nền Wifi SoC với thiết kế dễ dàng sử dụng vì tích hợp sẵn mạch nạp sử dụng ic CP2102 trên borad. ...]]></description>
+										<content:encoded><![CDATA[
+<p>Kit ESP8266 là kit phát triển dựa trên nền Wifi SoC với thiết kế dễ dàng sử dụng vì tích hợp sẵn mạch nạp sử dụng ic CP2102 trên borad. Bên trong ESP8266 có sẵn một lõi vi xử lý vì thế bạn có thể trực tiếp lập trình cho ESP8266 mà không cần thêm bất kì con vi xử lý nào nữa. Hiện tại có hai ngôn ngữ có thể lập trình cho ESP8266, sử dụng trực tiếp phần mềm IDE của Arduino để lập trình với bộ thư viện riêng hoặc sử dụng phần mềm NodeMCU</p>
+
+
+
+<p>Với kích thước nhỏ gọn, linh hoạt nên board dễ dàng liên kết với các thiết bị ngoại vi để tạo thành project, sản phẩm mẫu một cách nhanh chóng.</p>
+
+
+
+<p><strong>Thông số kỹ thuật</strong></p>
+
+
+
+<figure class="wp-block-table"><table><tbody><tr><td>Chip điều khiển</td><td>ESP8266EX</td></tr><tr><td>WiFi</td><td>2.4 GHz hỗ trợ chuẩn 802.11 b/g/n</td></tr><tr><td>Điện áp hoạt động</td><td>3.3 V</td></tr><tr><td>Điện áp đầu vào</td><td>5V (thông qua cổng USB)</td></tr><tr><td>Số chân I/O</td><td>11 (tất cả các chân I/O đều có Interrupt/PWM/I2C/One-wire, trừ chân D0)</td></tr><tr><td>Số chân Analog Input</td><td>1 (điện áp vào tối đa 3.3V)</td></tr><tr><td>Bộ nhớ Flash</td><td>4MB</td></tr><tr><td>Hỗ trợ bảo mật</td><td>WPA/WPA2</td></tr><tr><td>Tích hợp giao thức</td><td>TCP/IP</td></tr><tr><td>Lập trình trên các ngôn ngữ</td><td>C/C++, Micropython, NodeMCU &#8211; Lua</td></tr></tbody></table></figure>
+
+
+
+<p><strong>Sơ đồ chân</strong></p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="666" height="364" src="http://localhost/wp-content/uploads/2020/09/ESP-12E-Development-Board-ESP8266-NodeMCU-Pinout.jpg" alt="" class="wp-image-133"/></figure>
+
+
+
+<p><strong>Công cụ phát triển</strong></p>
+
+
+
+<ul><li>Tải và cài đặt Arduino, trình biên dịch và nạp code cho nodemcu</li><li>Cài đặt gói esp8266 cho Arduino<br>Mở Arduino lên và vào File -&gt; Preferences và dán chuỗi này vào: <a href="http://arduino.esp8266.com/stable/package_esp8266com_index.json">http://arduino.esp8266.com/stable/package_esp8266com_index.json</a> -&gt; Nhấn OK</li></ul>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="723" height="606" src="http://localhost/wp-content/uploads/2020/09/2019-04-28-17_18_59-.png" alt="" class="wp-image-135"/></figure>
+
+
+
+<ul><li>Sau đó vào <em>Tools -&gt; Board (…) -&gt; Boards Manage</em>r và gõ esp8266 và nhấn Install để cài gói<br></li></ul>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="700" height="608" src="http://localhost/wp-content/uploads/2020/09/1_vUaLD5aSm2iGZ_12tBrXow-1.png" alt="" class="wp-image-139"/></figure>
+
+
+
+<ul><li>Cuối cùng vào <em>Tools -&gt; Board (…)&nbsp;</em>và chọn <em>“NodeMCU 1.0 (ESP 12-E module)”</em> để chọn đúng board để lập trình</li></ul>
+
+
+
+<p>Như vậy chúng ta đã setup xong gói esp8266 trên arduino, bài sau chúng ta sẽ tìm hiểu viết 1 chương trình cơ bản <img src="https://s.w.org/images/core/emoji/13.0.0/72x72/1f600.png" alt="😀" class="wp-smiley" style="height: 1em; max-height: 1em;" /></p>
+]]></content:encoded>
+					
+					<wfw:commentRss>http://localhost/2020/09/21/iot-esp8266-01/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Chào tất cả mọi người!</title>
+		<link>http://localhost/2020/09/21/chao-moi-nguoi/</link>
+					<comments>http://localhost/2020/09/21/chao-moi-nguoi/#comments</comments>
+		
+		<dc:creator><![CDATA[codervn]]></dc:creator>
+		<pubDate>Mon, 21 Sep 2020 03:44:32 +0000</pubDate>
+				<guid isPermaLink="false">http://localhost/?p=1</guid>
+
+					<description><![CDATA[Cảm ơn vì đã sử dụng WordPress. Đây là bài viết đầu tiên của bạn. Sửa hoặc xóa nó, và bắt đầu bài viết của bạn nhé!]]></description>
+										<content:encoded><![CDATA[
+<p>Cảm ơn vì đã sử dụng WordPress. Đây là bài viết đầu tiên của bạn. Sửa hoặc xóa nó, và bắt đầu bài viết của bạn nhé!</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>http://localhost/2020/09/21/chao-moi-nguoi/feed/</wfw:commentRss>
+			<slash:comments>1</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Markup: HTML Tags and Formatting</title>
+		<link>http://localhost/2016/02/12/markup-html-tags-and-formatting/</link>
+					<comments>http://localhost/2016/02/12/markup-html-tags-and-formatting/#respond</comments>
+		
+		<dc:creator><![CDATA[FameThemes]]></dc:creator>
+		<pubDate>Fri, 12 Feb 2016 08:28:47 +0000</pubDate>
+				<category><![CDATA[Apps]]></category>
+		<category><![CDATA[One Page]]></category>
+		<category><![CDATA[Responsive]]></category>
+		<category><![CDATA[17]]></category>
+		<guid isPermaLink="false">http://demos.famethemes.com/onepress/?p=37</guid>
+
+					<description><![CDATA[Headings Header one Header two Header three Header four Header five Header six Blockquotes Single line blockquote: Stay hungry. Stay foolish. Multi line blockquote with a cite reference: People think ...]]></description>
+										<content:encoded><![CDATA[<h2>Headings</h2>
+<h1>Header one</h1>
+<h2>Header two</h2>
+<h3>Header three</h3>
+<h4>Header four</h4>
+<h5>Header five</h5>
+<h6>Header six</h6>
+<h2>Blockquotes</h2>
+<p>Single line blockquote:</p>
+<blockquote><p>Stay hungry. Stay foolish.</p></blockquote>
+<p>Multi line blockquote with a cite reference:</p>
+<blockquote><p>People think focus means saying yes to the thing you&#8217;ve got to focus on. But that&#8217;s not what it means at all. It means saying no to the hundred other good ideas that there are. You have to pick carefully. I&#8217;m actually as proud of the things we haven&#8217;t done as the things I have done. Innovation is saying no to 1,000 things.</p></blockquote>
+<p><cite>Steve Jobs</cite> &#8211; Apple Worldwide Developers&#8217; Conference, 1997</p>
+<h2>Tables</h2>
+<table>
+<thead>
+<tr>
+<th>Employee</th>
+<th>Salary</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th><a href="https://example.org/">John Doe</a></th>
+<td>$1</td>
+<td>Because that&#8217;s all Steve Jobs needed for a salary.</td>
+</tr>
+<tr>
+<th><a href="https://example.org/">Jane Doe</a></th>
+<td>$100K</td>
+<td>For all the blogging she does.</td>
+</tr>
+<tr>
+<th><a href="https://example.org/">Fred Bloggs</a></th>
+<td>$100M</td>
+<td>Pictures are worth a thousand words, right? So Jane x 1,000.</td>
+</tr>
+<tr>
+<th><a href="https://example.org/">Jane Bloggs</a></th>
+<td>$100B</td>
+<td>With hair like that?! Enough said&#8230;</td>
+</tr>
+</tbody>
+</table>
+<h2>Definition Lists</h2>
+<dl>
+<dt>Definition List Title</dt>
+<dd>Definition list division.</dd>
+<dt>Startup</dt>
+<dd>A startup company or startup is a company or temporary organization designed to search for a repeatable and scalable business model.</dd>
+<dt>#dowork</dt>
+<dd>Coined by Rob Dyrdek and his personal body guard Christopher &#8220;Big Black&#8221; Boykins, &#8220;Do Work&#8221; works as a self motivator, to motivating your friends.</dd>
+<dt>Do It Live</dt>
+<dd>I&#8217;ll let Bill O&#8217;Reilly will <a title="We'll Do It Live" href="https://www.youtube.com/watch?v=O_HyZ5aW76c">explain</a> this one.</dd>
+</dl>
+<h2>Unordered Lists (Nested)</h2>
+<ul>
+<li>List item one
+<ul>
+<li>List item one
+<ul>
+<li>List item one</li>
+<li>List item two</li>
+<li>List item three</li>
+<li>List item four</li>
+</ul>
+</li>
+<li>List item two</li>
+<li>List item three</li>
+<li>List item four</li>
+</ul>
+</li>
+<li>List item two</li>
+<li>List item three</li>
+<li>List item four</li>
+</ul>
+<h2>Ordered List (Nested)</h2>
+<ol>
+<li>List item one
+<ol>
+<li>List item one
+<ol>
+<li>List item one</li>
+<li>List item two</li>
+<li>List item three</li>
+<li>List item four</li>
+</ol>
+</li>
+<li>List item two</li>
+<li>List item three</li>
+<li>List item four</li>
+</ol>
+</li>
+<li>List item two</li>
+<li>List item three</li>
+<li>List item four</li>
+</ol>
+<h2>HTML Tags</h2>
+<p>These supported tags come from the WordPress.com code <a title="Code" href="https://en.support.wordpress.com/code/">FAQ</a>.</p>
+<p><strong>Address Tag</strong></p>
+<address>1 Infinite Loop<br />
+Cupertino, CA 95014<br />
+United States</address>
+<p><strong>Anchor Tag (aka. Link)</strong></p>
+<p>This is an example of a <a title="Apple" href="https://apple.com">link</a>.</p>
+<p><strong>Abbreviation Tag</strong></p>
+<p>The abbreviation <abbr title="Seriously">srsly</abbr> stands for &#8220;seriously&#8221;.</p>
+<p><strong>Acronym Tag (<em>deprecated in HTML5</em>)</strong></p>
+<p>The acronym <acronym title="For The Win">ftw</acronym> stands for &#8220;for the win&#8221;.</p>
+<p><strong>Big Tag <strong>(<em>deprecated in HTML5</em>)</strong></strong></p>
+<p>These tests are a <big>big</big> deal, but this tag is no longer supported in HTML5.</p>
+<p><strong>Cite Tag</strong></p>
+<p>&#8220;Code is poetry.&#8221; &#8212;<cite>Automattic</cite></p>
+<p><strong>Code Tag</strong></p>
+<p>You will learn later on in these tests that <code>word-wrap: break-word;</code> will be your best friend.</p>
+<p><strong>Delete Tag</strong></p>
+<p>This tag will let you <del>strikeout text</del>, but this tag is no longer supported in HTML5 (use the <code>&lt;strike&gt;</code> instead).</p>
+<p><strong>Emphasize Tag</strong></p>
+<p>The emphasize tag should <em>italicize</em> text.</p>
+<p><strong>Insert Tag</strong></p>
+<p>This tag should denote <ins>inserted</ins> text.</p>
+<p><strong>Keyboard Tag</strong></p>
+<p>This scarcely known tag emulates <kbd>keyboard text</kbd>, which is usually styled like the <code>&lt;code&gt;</code> tag.</p>
+<p><strong>Preformatted Tag</strong></p>
+<p>This tag styles large blocks of code.</p>
+<pre>.post-title {
+	margin: 0 0 5px;
+	font-weight: bold;
+	font-size: 38px;
+	line-height: 1.2;
+	and here's a line of some really, really, really, really long text, just to see how the PRE tag handles it and to find out how it overflows;
+}</pre>
+<p><strong>Quote Tag</strong></p>
+<p><q>Developers, developers, developers&#8230;</q> &#8211;Steve Ballmer</p>
+<p><strong>Strike Tag <strong>(<em>deprecated in HTML5</em>)</strong></strong></p>
+<p>This tag shows <span style="text-decoration: line-through;">strike-through text</span></p>
+<p><strong>Strong Tag</strong></p>
+<p>This tag shows <strong>bold<strong> text.</strong></strong></p>
+<p><strong>Subscript Tag</strong></p>
+<p>Getting our science styling on with H<sub>2</sub>O, which should push the &#8220;2&#8221; down.</p>
+<p><strong>Superscript Tag</strong></p>
+<p>Still sticking with science and Isaac Newton&#8217;s E = MC<sup>2</sup>, which should lift the 2 up.</p>
+<p><strong>Teletype Tag <strong>(<em>deprecated in HTML5</em>)</strong></strong></p>
+<p>This rarely used tag emulates <tt>teletype text</tt>, which is usually styled like the <code>&lt;code&gt;</code> tag.</p>
+<p><strong>Variable Tag</strong></p>
+<p>This allows you to denote <var>variables</var>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>http://localhost/2016/02/12/markup-html-tags-and-formatting/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Markup: Text Alignment</title>
+		<link>http://localhost/2016/02/12/markup-text-alignment/</link>
+					<comments>http://localhost/2016/02/12/markup-text-alignment/#respond</comments>
+		
+		<dc:creator><![CDATA[FameThemes]]></dc:creator>
+		<pubDate>Fri, 12 Feb 2016 08:27:17 +0000</pubDate>
+				<category><![CDATA[Responsive]]></category>
+		<category><![CDATA[11]]></category>
+		<category><![CDATA[14]]></category>
+		<category><![CDATA[16]]></category>
+		<category><![CDATA[17]]></category>
+		<category><![CDATA[19]]></category>
+		<guid isPermaLink="false">http://demos.famethemes.com/onepress/?p=33</guid>
+
+					<description><![CDATA[Default This is a paragraph. It should not have any alignment of any kind. It should just flow like you would normally expect. Nothing fancy. Just straight up text, free ...]]></description>
+										<content:encoded><![CDATA[<h3><img loading="lazy" class="alignnone wp-image-35 size-full" src="https://demos.famethemes.com/onepress/wp-content/uploads/sites/17/2016/02/blog4.jpg" alt="blog4" width="1280" height="853" /></h3>
+<h3>Default</h3>
+<p>This is a paragraph. It should not have any alignment of any kind. It should just flow like you would normally expect. Nothing fancy. Just straight up text, free flowing, with love. Completely neutral and not picking a side or sitting on the fence. It just is. It just freaking is. It likes where it is. It does not feel compelled to pick a side. Leave him be. It will just be better that way. Trust me.</p>
+<h3>Left Align</h3>
+<p style="text-align: left;">This is a paragraph. It is left aligned. Because of this, it is a bit more liberal in it&#8217;s views. It&#8217;s favorite color is green. Left align tends to be more eco-friendly, but it provides no concrete evidence that it really is. Even though it likes share the wealth evenly, it leaves the equal distribution up to justified alignment.</p>
+<h3>Center Align</h3>
+<p style="text-align: center;">This is a paragraph. It is center aligned. Center is, but nature, a fence sitter. A flip flopper. It has a difficult time making up its mind. It wants to pick a side. Really, it does. It has the best intentions, but it tends to complicate matters more than help. The best you can do is try to win it over and hope for the best. I hear center align does take bribes.</p>
+<h3>Right Align</h3>
+<p style="text-align: right;">This is a paragraph. It is right aligned. It is a bit more conservative in it&#8217;s views. It&#8217;s prefers to not be told what to do or how to do it. Right align totally owns a slew of guns and loves to head to the range for some practice. Which is cool and all. I mean, it&#8217;s a pretty good shot from at least four or five football fields away. Dead on. So boss.</p>
+<h3>Justify Align</h3>
+<p style="text-align: justify;">This is a paragraph. It is justify aligned. It gets really mad when people associate it with Justin Timberlake. Typically, justified is pretty straight laced. It likes everything to be in it&#8217;s place and not all cattywampus like the rest of the aligns. I am not saying that makes it better than the rest of the aligns, but it does tend to put off more of an elitist attitude.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>http://localhost/2016/02/12/markup-text-alignment/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Markup: Image Alignment</title>
+		<link>http://localhost/2013/01/10/markup-image-alignment/</link>
+		
+		<dc:creator><![CDATA[FameThemes]]></dc:creator>
+		<pubDate>Fri, 11 Jan 2013 03:15:40 +0000</pubDate>
+				<category><![CDATA[Markup]]></category>
+		<category><![CDATA[Responsive]]></category>
+		<category><![CDATA[11]]></category>
+		<category><![CDATA[13]]></category>
+		<category><![CDATA[14]]></category>
+		<category><![CDATA[16]]></category>
+		<category><![CDATA[17]]></category>
+		<category><![CDATA[18]]></category>
+		<category><![CDATA[19]]></category>
+		<guid isPermaLink="false">http://wptest.io/demo/?p=903</guid>
+
+					<description><![CDATA[Welcome to image alignment! The best way to demonstrate the ebb and flow of the various image positioning options is to nestle them snuggly among an ocean of words. Grab ...]]></description>
+										<content:encoded><![CDATA[<p>Welcome to image alignment! The best way to demonstrate the ebb and flow of the various image positioning options is to nestle them snuggly among an ocean of words. Grab a paddle and let&#8217;s get started.</p>
+<p>On the topic of alignment, it should be noted that users can choose from the options of <em>None</em>, <em>Left</em>, <em>Right, </em>and <em>Center</em>. In addition, they also get the options of <em>Thumbnail</em>, <em>Medium</em>, <em>Large</em> &amp; <em>Fullsize</em>.</p>
+<p style="text-align: center;"><img loading="lazy" class="size-full wp-image-906 aligncenter" title="Image Alignment 580x300" src="https://demos.famethemes.com/onepress/wp-content/uploads/2013/03/image-alignment-580x300.jpg" alt="Image Alignment 580x300" width="580" height="300" /></p>
+<p>The image above happens to be <em><strong>centered</strong></em>.</p>
+<p><strong><img loading="lazy" class="size-full wp-image-904 alignleft" title="Image Alignment 150x150" src="https://demos.famethemes.com/onepress/wp-content/uploads/2013/03/image-alignment-150x150.jpg" alt="Image Alignment 150x150" width="150" height="150" /></strong>The rest of this paragraph is filler for the sake of seeing the text wrap around the 150&#215;150 image, which is <em><strong>left aligned</strong></em>.</p>
+<p>As you can see the should be some space above, below, and to the right of the image. The text should not be creeping on the image. Creeping is just not right. Images need breathing room too. Let them speak like you words. Let them do their jobs without any hassle from the text. In about one more sentence here, we&#8217;ll see that the text moves from the right of the image down below the image in seamless transition. Again, letting the do it&#8217;s thang. Mission accomplished!</p>
+<p>And now for a <em><strong>massively large image</strong></em>. It also has <em><strong>no alignment</strong></em>.</p>
+<p><img loading="lazy" class="alignnone wp-image-907" title="Image Alignment 1200x400" src="https://demos.famethemes.com/onepress/wp-content/uploads/2013/03/image-alignment-1200x4002.jpg" alt="Image Alignment 1200x400" width="1200" height="400" /></p>
+<p>The image above, though 1200px wide, should not overflow the content area. It should remain contained with no visible disruption to the flow of content.</p>
+<p><img loading="lazy" class="size-full wp-image-905 alignright" title="Image Alignment 300x200" src="https://demos.famethemes.com/onepress/wp-content/uploads/2013/03/image-alignment-300x200.jpg" alt="Image Alignment 300x200" width="300" height="200" /></p>
+<p>And now we&#8217;re going to shift things to the <em><strong>right align</strong></em>. Again, there should be plenty of room above, below, and to the left of the image. Just look at him there&#8230; Hey guy! Way to rock that right side. I don&#8217;t care what the left aligned image says, you look great. Don&#8217;t let anyone else tell you differently.</p>
+<p>In just a bit here, you should see the text start to wrap below the right aligned image and settle in nicely. There should still be plenty of room and everything should be sitting pretty. Yeah&#8230; Just like that. It never felt so good to be right.</p>
+<p>And just when you thought we were done, we&#8217;re going to do them all over again with captions!</p>
+<p><figure id="attachment_906" aria-describedby="caption-attachment-906" style="width: 580px" class="wp-caption aligncenter"><img loading="lazy" class="size-full wp-image-906 " title="Image Alignment 580x300" src="https://demos.famethemes.com/onepress/wp-content/uploads/2013/03/image-alignment-580x300.jpg" alt="Image Alignment 580x300" width="580" height="300" /><figcaption id="caption-attachment-906" class="wp-caption-text">Look at 580&#215;300 getting some <a title="Image Settings" href="https://en.support.wordpress.com/images/image-settings/">caption</a> love.</figcaption></figure></p>
+<p>The image above happens to be <em><strong>centered</strong></em>. The caption also has a link in it, just to see if it does anything funky.</p>
+<p><figure id="attachment_904" aria-describedby="caption-attachment-904" style="width: 150px" class="wp-caption alignleft"><img loading="lazy" class="size-full wp-image-904 " title="Image Alignment 150x150" src="https://demos.famethemes.com/onepress/wp-content/uploads/2013/03/image-alignment-150x150.jpg" alt="Image Alignment 150x150" width="150" height="150" /><figcaption id="caption-attachment-904" class="wp-caption-text">Itty-bitty caption.</figcaption></figure></p>
+<p>The rest of this paragraph is filler for the sake of seeing the text wrap around the 150&#215;150 image, which is <em><strong>left aligned</strong></em>.</p>
+<p>As you can see the should be some space above, below, and to the right of the image. The text should not be creeping on the image. Creeping is just not right. Images need breathing room too. Let them speak like you words. Let them do their jobs without any hassle from the text. In about one more sentence here, we&#8217;ll see that the text moves from the right of the image down below the image in seamless transition. Again, letting the do it&#8217;s thang. Mission accomplished!</p>
+<p>And now for a <em><strong>massively large image</strong></em>. It also has <em><strong>no alignment</strong></em>.</p>
+<p><figure id="attachment_907" aria-describedby="caption-attachment-907" style="width: 1200px" class="wp-caption alignnone"><img loading="lazy" class=" wp-image-907" title="Image Alignment 1200x400" src="https://demos.famethemes.com/onepress/wp-content/uploads/2013/03/image-alignment-1200x4002.jpg" alt="Image Alignment 1200x400" width="1200" height="400" /><figcaption id="caption-attachment-907" class="wp-caption-text">Massive image comment for your eyeballs.</figcaption></figure></p>
+<p>The image above, though 1200px wide, should not overflow the content area. It should remain contained with no visible disruption to the flow of content.</p>
+<p><figure id="attachment_905" aria-describedby="caption-attachment-905" style="width: 300px" class="wp-caption alignright"><img loading="lazy" class="size-full wp-image-905 " title="Image Alignment 300x200" src="https://demos.famethemes.com/onepress/wp-content/uploads/2013/03/image-alignment-300x200.jpg" alt="Image Alignment 300x200" width="300" height="200" /><figcaption id="caption-attachment-905" class="wp-caption-text">Feels good to be right all the time.</figcaption></figure></p>
+<p>And now we&#8217;re going to shift things to the <em><strong>right align</strong></em>. Again, there should be plenty of room above, below, and to the left of the image. Just look at him there&#8230; Hey guy! Way to rock that right side. I don&#8217;t care what the left aligned image says, you look great. Don&#8217;t let anyone else tell you differently.</p>
+<p>In just a bit here, you should see the text start to wrap below the right aligned image and settle in nicely. There should still be plenty of room and everything should be sitting pretty. Yeah&#8230; Just like that. It never felt so good to be right.</p>
+<p>And that&#8217;s a wrap, yo! You survived the tumultuous waters of alignment. Image alignment achievement unlocked!</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>
